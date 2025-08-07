@@ -28,4 +28,17 @@ public static class Applications
 
         return apps;
     }
+
+    public static void VolumeSet(uint pid, int volume)
+    {
+        if (!(volume is >= 0 and <= 100)) return;
+
+        var deviceEnum = new MMDeviceEnumerator();
+
+        foreach (var device in deviceEnum.EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active))
+        foreach (var session in device.AudioSessionManager2.Sessions)
+            if (session.State == AudioSessionState.AudioSessionStateActive)
+                if (session.ProcessID == pid)
+                    session.SimpleAudioVolume.MasterVolume = (float)volume / 100;
+    }
 }

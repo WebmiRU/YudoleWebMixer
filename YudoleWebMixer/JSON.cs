@@ -30,3 +30,11 @@ public class ApplicationsGet
 
     [JsonPropertyName("applications")] public List<Application> Applications { get; set; } = new();
 }
+
+public class ApplicationsVolumeSet
+{
+    [JsonPropertyName("type")] public string Type { get; init; } = "applications.volume.set";
+
+    [JsonPropertyName("pid")] public required uint PID { get; init; }
+    [JsonPropertyName("volume")] public required int Volume { get; init; }
+}

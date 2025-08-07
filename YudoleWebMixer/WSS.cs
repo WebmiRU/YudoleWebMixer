@@ -28,6 +28,11 @@ public class WSS : WebSocketBehavior
                 });
 
                 break;
+
+            case "applications.volume.set":
+                var value = JsonDocument.Parse(e.Data).Deserialize<ApplicationsVolumeSet>();
+                Applications.VolumeSet(value.PID, value.Volume);
+                break;
         }
 
         if (response != null) Send(response);
